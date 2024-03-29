@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+#include "lua_wrapper.h"
+
+struct Person
+{
+    std::string name;
+    int age;
+    Person(std::string_view name, int age) : name{name}, age{age} {}
+};
+
+std::ostream &operator<<(std::ostream &stream, const Person &person)
+{
+    return stream << "PERSON: " << person.name << "(" << person.age << ")" << std::endl;
+}
+
+int main()
+{
+    pul::LuaInstance L;
+
+    auto fileResult = L.exec_file("script.lua");
+    if (fileResult.isError())
+    {
+        std::cerr << fileResult.getError() << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    std::string name = L.get_string("name").okOrDefault("Name not found");
+    int age = L.get_number("age").okOrDefault(0);
+    Person person(name, age);
+    std::cout << person << std::endl;
+
+    auto name2 = L.get_string("Name");
+    auto age2 = L.get_number("Age");
+    if (name2.isOk() && age2.isOk())
+    {
+        Person person2(name2.unwrap(), age2.unwrap());
+        std::cout << person2 << std::endl;
+    }
+
+    return EXIT_SUCCESS;
+}
