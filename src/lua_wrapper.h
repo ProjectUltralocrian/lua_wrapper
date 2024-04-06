@@ -24,6 +24,8 @@ namespace pul
         using NumberResult = Result<double, LuaError>;
 
         LuaInstance();
+        LuaInstance(const LuaInstance &) = delete;
+        LuaInstance operator=(const LuaInstance &) = delete;
         ~LuaInstance();
 
         StringResult exec_file(const char *fn);

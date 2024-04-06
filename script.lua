@@ -12,4 +12,4 @@ Name, Age = GetPersonData(Bjarne)
 --Name, Age = GetPersonData { name = "Rich Hickey", age = 55 }
 
 print "Script.lua successfully loaded. Printing person:"
-PrintPerson { name = "Rich Hickey", age = 55 }
+PrintPerson { name = "Rich Hickey", age = 42 }
