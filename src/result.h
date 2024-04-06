@@ -26,13 +26,13 @@ namespace pul
         };
         static Result Ok(SuccessType value)
         {
-            auto output = Result(value);
+            auto output = Result(std::variant<SuccessType, ErrorType>{std::in_place_index<OkVariant>, value});
             output.m_Ok = true;
             return output;
         }
         static Result Error(ErrorType value)
         {
-            auto output = Result(value);
+            auto output = Result(std::variant<SuccessType, ErrorType>{std::in_place_index<ErrorVariant>, value});
             output.m_Ok = false;
             return output;
         }
@@ -63,6 +63,10 @@ namespace pul
                 throw std::bad_variant_access();
             }
             return std::get<ErrorVariant>(m_Data);
+        }
+        operator bool() const
+        {
+            return m_Ok;
         }
 
     private:

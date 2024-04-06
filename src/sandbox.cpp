@@ -38,5 +38,19 @@ int main()
         std::cout << person2 << std::endl;
     }
 
+    auto res = pul::Result<std::string, std::string>::Ok("Hello error");
+    if (res)
+    {
+        std::cout << "SUCCESS: " << res.unwrap() << std::endl;
+    }
+    else
+    {
+        std::cout << "ERROR: " << res.getError() << std::endl;
+    }
+    std::cout << res.okOrDefault("Default") << std::endl;
+
+    res = pul::Result<std::string, std::string>::Ok("Hello OK");
+    std::cout << res.unwrap() << std::endl;
+
     return EXIT_SUCCESS;
 }
