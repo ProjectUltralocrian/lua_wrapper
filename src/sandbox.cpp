@@ -52,5 +52,8 @@ int main()
     res = pul::Result<std::string, std::string>::Ok("Hello OK");
     std::cout << res.unwrap() << std::endl;
 
+    auto table = L.get_table("table");
+    std::cout << table.getError() << std::endl;
+
     return EXIT_SUCCESS;
 }
