@@ -11,7 +11,6 @@ std::ostream &operator<<(std::ostream &stream, const std::vector<std::string> &v
 
 #include "result.h"
 
-
 namespace pul
 {
 
@@ -26,7 +25,11 @@ namespace pul
 
     std::ostream &operator<<(std::ostream &stream, const LuaError &e);
 
+#ifdef _MSC_VER
     class __declspec(dllexport) LuaInstance
+#else
+    class LuaInstance
+#endif
     {
     public:
         using StringResult = Result<const char *, LuaError>;
