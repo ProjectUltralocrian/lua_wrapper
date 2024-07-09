@@ -4,7 +4,6 @@
 #include "../lua-5.4.6/src/lua.hpp"
 #include <iostream>
 
-
 namespace pul
 {
 
@@ -18,7 +17,7 @@ namespace pul
 
     std::ostream &operator<<(std::ostream &stream, const LuaError &e);
 
-    class __declspec(dllexport) LuaInstance
+    class LuaInstance
     {
     public:
         using StringResult = Result<std::string, LuaError>;
