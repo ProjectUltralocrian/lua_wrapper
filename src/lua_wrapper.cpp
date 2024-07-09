@@ -53,7 +53,7 @@ namespace pul
         return s;
     }
 
-    LuaInstance::TableResult LuaInstance::get_table(const char *var_name)
+    LuaInstance::TableResult LuaInstance::get_all_values_in_table(const char *var_name)
     {
         auto result = lua_getglobal(m_L, var_name);
         if (result != LUA_TTABLE)

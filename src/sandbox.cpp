@@ -52,7 +52,7 @@ int main()
     res = pul::Result<std::string, std::string>::Ok("Hello OK");
     std::cout << res.unwrap() << std::endl;
 
-    auto table = L.get_table("stuff");
+    auto table = L.get_all_values_in_table("stuff");
     if (table.isError())
         std::cout << table.getError() << std::endl;
     else

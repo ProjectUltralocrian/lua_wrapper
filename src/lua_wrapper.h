@@ -41,7 +41,7 @@ namespace pul
 
         StringResult get_string(const char *var_name);
         NumberResult get_number(const char *var_name);
-        TableResult get_table(const char *var_name);
+        TableResult get_all_values_in_table(const char *var_name);
 
     private:
         lua_State *const m_L;
