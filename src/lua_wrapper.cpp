@@ -61,10 +61,20 @@ namespace pul
             lua_pop(m_L, 1);
             return LuaInstance::TableResult::Error(LuaError::TableNotFound);
         }
-        return LuaInstance::TableResult::Error(LuaError::TableNotFound);
-        // auto s = LuaInstance::TableResult::Ok(lua_tonumber(m_L, -1));
-        //  lua_pop(LuaInstance::m_L, 1);
-        //  return s;
+
+        lua_pushnil(m_L);
+        std::vector<std::string> output{};
+        while (lua_next(m_L, -2))
+        {
+            if (lua_isstring(m_L, -1))
+            {
+                auto s = lua_tostring(m_L, -1);
+                output.push_back(std::string(s));
+            }
+            lua_pop(m_L, 1);
+        }
+        lua_pop(m_L, 1);
+        return TableResult::Ok(output);
     }
 
     std::ostream &operator<<(std::ostream &stream, const LuaError &error)
