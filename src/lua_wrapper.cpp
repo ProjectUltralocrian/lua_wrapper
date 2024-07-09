@@ -1,4 +1,5 @@
 #include "lua_wrapper.h"
+#include <string>
 
 namespace pul
 {
@@ -52,6 +53,20 @@ namespace pul
         return s;
     }
 
+    LuaInstance::TableResult LuaInstance::get_table(const char *var_name)
+    {
+        auto result = lua_getglobal(m_L, var_name);
+        if (result != LUA_TTABLE)
+        {
+            lua_pop(m_L, 1);
+            return LuaInstance::TableResult::Error(LuaError::TableNotFound);
+        }
+        return LuaInstance::TableResult::Error(LuaError::TableNotFound);
+        // auto s = LuaInstance::TableResult::Ok(lua_tonumber(m_L, -1));
+        //  lua_pop(LuaInstance::m_L, 1);
+        //  return s;
+    }
+
     std::ostream &operator<<(std::ostream &stream, const LuaError &error)
     {
         auto output = [](const LuaError &e)
@@ -66,11 +81,22 @@ namespace pul
                 return "LUA ERROR: String could not be parsed.";
             case LuaError::NumberNotFound:
                 return "LUA ERROR: Number not found.";
+            case LuaError::TableNotFound:
+                return "LUA ERROR: Table not found.";
             default:
                 return "LUA ERROR: Unknown error";
             }
         };
 
         return stream << output(error);
+    }
+
+    std::ostream &operator<<(std::ostream &stream, const std::vector<std::string> &v)
+    {
+        for (const auto &s : v)
+        {
+            stream << "  - " << s << std::endl;
+        }
+        return stream;
     }
 }
