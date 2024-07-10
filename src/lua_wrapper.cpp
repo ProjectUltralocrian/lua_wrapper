@@ -103,7 +103,7 @@ namespace pul
             case LuaError::TableNotFound:
                 return "LUA ERROR: Table not found.";
             default:
-                return "LUA ERROR: Unknown error";
+                return "LUA ERROR: Unknown error...";
             }
         };
 
