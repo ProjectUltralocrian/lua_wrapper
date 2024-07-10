@@ -34,6 +34,7 @@ namespace pul
         }
 
         lua_pcall(m_L, 0, LUA_MULTRET, 0);
+        std::cout << fn << " successfully opened...\n";
         return LuaInstance::StringResult::Ok("File successfully executed.");
     }
 
