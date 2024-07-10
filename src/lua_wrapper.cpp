@@ -1,6 +1,15 @@
 #include "lua_wrapper.h"
 #include <string>
 
+std::ostream &operator<<(std::ostream &stream, const std::vector<std::string> &v)
+{
+    for (const auto &s : v)
+    {
+        stream << "  - " << s << std::endl;
+    }
+    return stream;
+}
+
 namespace pul
 {
     LuaInstance::LuaInstance()
@@ -99,14 +108,5 @@ namespace pul
         };
 
         return stream << output(error);
-    }
-
-    std::ostream &operator<<(std::ostream &stream, const std::vector<std::string> &v)
-    {
-        for (const auto &s : v)
-        {
-            stream << "  - " << s << std::endl;
-        }
-        return stream;
     }
 }
